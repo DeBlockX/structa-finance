@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Structa Finance | Trusted Financial Excellence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0b1629;--ink2:#162034;--gold:#c9a84c;--goldl:#e8c87a;--goldb:#f0d060;--goldp:#f5e9c8;--cream:#faf7f2;--white:#fff;--muted:#6b7a8d}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+input,select,textarea,button{font-family:'DM Sans',sans-serif}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.gold-text{background:linear-gradient(135deg,#c9a84c,#f0d060,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes floatOrb{0%,100%{transform:translate(0,0)}50%{transform:translate(28px,-36px)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(11,22,41,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,168,76,.16);transition:box-shadow .3s}
+.navbar.scrolled{box-shadow:0 4px 36px rgba(0,0,0,.38)}
+.nav-logo{display:flex;align-items:center;gap:11px}
+.nav-logo-icon{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--goldl));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--ink)}
+.nav-logo-text strong{display:block;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#fff;line-height:1}
+.nav-logo-text span{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{color:rgba(255,255,255,.62);font-size:13px;font-weight:500;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1px;background:var(--gold);transition:right .3s}
+.nav-links a:hover{color:#fff}.nav-links a:hover::after{right:0}
+.nav-cta{background:linear-gradient(135deg,var(--gold),var(--goldl))!important;color:var(--ink)!important;padding:9px 22px!important;border-radius:8px;font-weight:600!important;white-space:nowrap;transition:transform .2s,box-shadow .2s!important}
+.nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 6px 22px rgba(201,168,76,.42)!important}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;z-index:999;background:rgba(11,22,41,.98);border-top:1px solid rgba(201,168,76,.15);padding:24px 5% 28px;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:rgba(255,255,255,.72);font-size:15px;font-weight:500;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s}
+.mobile-menu a:hover,.mobile-menu a:last-child{color:var(--goldl)}
+.mob-cta{margin-top:16px!important;padding:14px!important;text-align:center;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--goldl));color:var(--ink)!important;font-weight:700!important;border:none!important}
+@media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}}
+/* HERO */
+.hero{min-height:100vh;background:var(--ink);position:relative;display:flex;flex-direction:column;overflow:hidden;padding-top:72px}
+.hero-bg-g{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 65% 50%,rgba(201,168,76,.07),transparent 65%)}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:62px 62px}
+.hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-orb{position:absolute;top:22%;right:22%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06),transparent);animation:floatOrb 14s ease-in-out infinite;pointer-events:none}
+.hero-body{position:relative;z-index:10;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:72px 5% 48px;max-width:1320px;margin:0 auto;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;padding:7px 18px;border-radius:50px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);color:#e8c87a;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5.2vw,5.2rem);font-weight:700;color:#fff;line-height:1.04;margin-bottom:24px}
+.hero-desc{font-size:16px;line-height:1.82;color:rgba(255,255,255,.53);max-width:510px;margin-bottom:38px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--goldl));color:var(--ink);padding:14px 32px;border-radius:10px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:9px;transition:all .25s;border:none;cursor:pointer;white-space:nowrap}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(201,168,76,.46)}
+.btn-outline-w{border:1px solid rgba(255,255,255,.22);color:#fff;padding:14px 32px;border-radius:10px;font-weight:500;font-size:14px;display:inline-flex;align-items:center;gap:9px;transition:all .25s;white-space:nowrap}
+.btn-outline-w:hover{border-color:var(--gold);color:var(--gold)}
+.hero-trust{display:flex;gap:22px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:11.5px;color:rgba(255,255,255,.33)}
+.trust-item i{color:var(--gold);font-size:10px}
+.stats-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.18);border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.stats-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.09),transparent 60%);pointer-events:none}
+.stat-cell{padding:20px 18px}
+.stat-cell:nth-child(1),.stat-cell:nth-child(2){border-bottom:1px solid rgba(201,168,76,.12)}
+.stat-cell:nth-child(1),.stat-cell:nth-child(3){border-right:1px solid rgba(201,168,76,.12)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,2.9rem);font-weight:700;line-height:1;background:linear-gradient(135deg,#c9a84c,#f0d060);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.36);margin-top:5px;font-weight:500}
+.stats-wrap{position:relative;padding-bottom:22px}
+.award-badge{position:absolute;bottom:-16px;left:-16px;background:linear-gradient(135deg,var(--gold),var(--goldl));border-radius:13px;padding:13px 17px;display:flex;align-items:center;gap:11px;box-shadow:0 14px 36px rgba(201,168,76,.42);z-index:20}
+.award-badge-icon{width:36px;height:36px;background:rgba(11,22,41,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ink)}
+.award-badge-title{font-weight:700;font-size:12px;color:var(--ink);line-height:1.25}
+.award-badge-sub{font-size:10.5px;color:rgba(11,22,41,.58)}
+.ticker-bar{position:relative;z-index:10;border-top:1px solid rgba(201,168,76,.18);background:rgba(255,255,255,.02);overflow:hidden}
+.ticker-track{display:flex;width:max-content;padding:13px 0;animation:tickerMove 26s linear infinite}
+.ticker-item{display:inline-flex;align-items:center;gap:10px;padding:0 32px;font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.ticker-dot{width:3px;height:3px;border-radius:50%;background:rgba(201,168,76,.5);flex-shrink:0}
+@media(max-width:900px){.hero-body{grid-template-columns:1fr;gap:40px;padding:48px 5% 36px}.stats-card{max-width:440px}}
+@media(max-width:480px){.hero h1{font-size:2.4rem}.hero-btns{flex-direction:column}.btn-gold,.btn-outline-w{justify-content:center}}
+/* MARQUEE */
+.marquee-gold{background:linear-gradient(135deg,var(--gold),var(--goldl));overflow:hidden;padding:13px 0}
+.marquee-inner{display:flex;width:max-content;animation:tickerMove 32s linear infinite}
+.mq-item{display:inline-flex;align-items:center;gap:12px;padding:0 30px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.mq-dot{width:3px;height:3px;border-radius:50%;background:rgba(11,22,41,.32);flex-shrink:0}
+/* SECTIONS */
+section{padding:90px 5%}
+@media(max-width:768px){section{padding:64px 5%}}
+.sec-line{display:block;width:44px;height:2px;background:linear-gradient(90deg,var(--gold),var(--goldl));border-radius:2px;margin-bottom:14px}
+.sec-tag{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.8vw,3.4rem);font-weight:700;line-height:1.06;color:var(--ink);margin-bottom:16px}
+.sec-sub{font-size:15.5px;line-height:1.8;color:var(--muted);max-width:500px}
+/* SERVICES */
+.bg-cream{background:var(--cream)}
+.bg-white{background:#fff}
+.bg-ink{background:var(--ink)}
+.svc-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:22px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+.svc-card{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:18px;padding:34px 30px;transition:transform .32s,box-shadow .32s;cursor:default;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--gold),var(--goldl));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.svc-card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(15,26,46,.1)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-card.feat{background:linear-gradient(150deg,#0f1e38,#0b1629);border:1px solid rgba(201,168,76,.22)}
+.svc-card.feat::before{display:none}
+.svc-card.feat:hover{box-shadow:0 24px 64px rgba(0,0,0,.3)}
+.svc-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:24px}
+.si-l{background:var(--goldp);color:var(--gold)}
+.si-d{background:rgba(201,168,76,.15);color:#e8c87a}
+.svc-card h3{font-family:'Cormorant Garamond',serif;font-size:1.48rem;font-weight:600;margin-bottom:11px}
+.h-l{color:var(--ink)}.h-d{color:#fff}
+.svc-desc{font-size:13.5px;line-height:1.75;margin-bottom:20px}
+.p-l{color:var(--muted)}.p-d{color:rgba(255,255,255,.47)}
+.svc-list{display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.svc-list li{display:flex;align-items:center;gap:9px;font-size:13px}
+.svc-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.svc-link{font-size:12.5px;font-weight:700;color:var(--gold);display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.svc-link:hover{gap:10px}
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:52px}}
+.about-img-wrap{position:relative}
+.about-img{width:100%;height:500px;object-fit:cover;border-radius:18px;box-shadow:0 28px 64px rgba(15,26,46,.12)}
+@media(max-width:560px){.about-img{height:280px}}
+.yr-badge{position:absolute;bottom:-20px;right:-20px;width:144px;height:144px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--goldl));display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 16px 44px rgba(201,168,76,.42)}
+.yr-badge strong{font-family:'Cormorant Garamond',serif;font-size:2.9rem;font-weight:700;color:var(--ink);line-height:1}
+.yr-badge span{font-size:9px;font-weight:700;color:rgba(11,22,41,.62);letter-spacing:1.5px;text-transform:uppercase;text-align:center;padding:0 10px}
+.float-card{position:absolute;top:-18px;left:-18px;background:var(--ink);border:1px solid rgba(201,168,76,.25);border-radius:13px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 12px 32px rgba(0,0,0,.25);z-index:10}
+.float-icon{width:38px;height:38px;border-radius:9px;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:14px}
+.float-num{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:#fff;line-height:1}
+.float-lbl{font-size:10.5px;color:rgba(255,255,255,.37)}
+.about-pts{display:flex;flex-direction:column;gap:18px;margin:28px 0 36px}
+.about-pt{display:flex;align-items:flex-start;gap:14px}
+.pt-icon{width:44px;height:44px;min-width:44px;border-radius:11px;background:var(--goldp);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:17px}
+.pt-h{font-weight:600;font-size:14.5px;color:var(--ink);margin-bottom:4px}
+.pt-p{font-size:13.5px;color:var(--muted);line-height:1.65}
+@media(max-width:480px){.yr-badge{width:110px;height:110px;bottom:-10px;right:-10px}.yr-badge strong{font-size:2.2rem}}
+/* WHY US */
+.whyus-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:56px}
+@media(max-width:900px){.whyus-grid{grid-template-columns:1fr;gap:44px}}
+.whyus-img{width:100%;height:500px;object-fit:cover;border-radius:18px;box-shadow:0 32px 80px rgba(0,0,0,.4)}
+@media(max-width:560px){.whyus-img{height:260px}}
+.feat-list{display:flex;flex-direction:column;gap:18px}
+.feat-item{display:flex;align-items:flex-start;gap:18px;padding:22px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);transition:all .3s}
+.feat-item:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.26)}
+.feat-icon{width:48px;height:48px;min-width:48px;border-radius:12px;background:rgba(201,168,76,.14);display:flex;align-items:center;justify-content:center;color:#e8c87a;font-size:19px}
+.feat-h{color:#fff;font-size:15px;font-weight:600;margin-bottom:5px}
+.feat-p{color:rgba(255,255,255,.43);font-size:13.5px;line-height:1.65}
+/* INDUSTRIES */
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.ind-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.ind-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+.ind-card{border-radius:14px;padding:24px 20px;border:1px solid rgba(0,0,0,.07);background:#fff;transition:all .3s;cursor:default}
+.ind-card:hover{border-color:rgba(201,168,76,.35);box-shadow:0 12px 36px rgba(15,26,46,.08);transform:translateY(-3px)}
+.ind-icon{width:48px;height:48px;border-radius:12px;background:var(--goldp);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:19px;margin-bottom:14px}
+.ind-card h4{color:var(--ink);font-weight:600;font-size:14.5px;margin-bottom:6px}
+.ind-card p{color:var(--muted);font-size:12.5px;line-height:1.62}
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+@media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.team-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
+.team-card{border-radius:18px;overflow:hidden;border:1px solid rgba(0,0,0,.07);transition:all .32s;cursor:default}
+.team-card:hover{transform:translateY(-5px);box-shadow:0 24px 56px rgba(15,26,46,.12)}
+.team-photo{position:relative;height:230px;overflow:hidden}
+.team-photo img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s}
+.team-card:hover .team-photo img{transform:scale(1.06)}
+.team-info{padding:18px}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:1.18rem;font-weight:600;color:var(--ink);margin-bottom:2px}
+.team-role{font-size:11.5px;font-weight:700;color:var(--gold);margin-bottom:6px}
+.team-cred{font-size:12px;color:var(--muted);margin-bottom:10px}
+.team-exp{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.team-exp i{color:var(--gold);font-size:10px}
+@media(max-width:440px){.team-photo{height:160px}}
+/* PROCESS */
+.proc-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative;margin-top:64px}
+.proc-steps::before{content:'';position:absolute;top:46px;left:9.5%;right:9.5%;height:1px;background:linear-gradient(90deg,var(--gold),var(--goldl),var(--gold));z-index:0}
+@media(max-width:900px){.proc-steps{grid-template-columns:repeat(3,1fr)}.proc-steps::before{display:none}}
+@media(max-width:540px){.proc-steps{grid-template-columns:1fr 1fr}}
+.proc-step{text-align:center;position:relative;z-index:1}
+.proc-circle{width:92px;height:92px;border-radius:50%;margin:0 auto 22px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.pc-active{background:linear-gradient(135deg,var(--gold),var(--goldl));color:var(--ink);box-shadow:0 8px 26px rgba(201,168,76,.46)}
+.pc-idle{background:#fff;border:2px solid var(--gold);color:var(--gold);box-shadow:0 0 0 8px var(--cream)}
+.proc-step h4{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:8px}
+.proc-step p{font-size:12.5px;color:var(--muted);line-height:1.65}
+@media(max-width:900px){.proc-circle{width:72px;height:72px;font-size:18px}}
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.testi-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{background:#fff;border-radius:18px;padding:28px;border:1px solid rgba(0,0,0,.07);transition:all .3s;cursor:default}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 22px 56px rgba(15,26,46,.1)}
+.stars{display:flex;gap:3px;margin-bottom:16px}
+.stars i{color:var(--gold);font-size:12px}
+.testi-card blockquote{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-style:italic;line-height:1.76;color:var(--ink);margin-bottom:22px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.t-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--gold),var(--goldl));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--ink)}
+.t-name{font-weight:600;font-size:13.5px;color:var(--ink)}
+.t-role{font-size:11.5px;color:var(--muted)}
+/* INSIGHTS */
+.ins-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;flex-wrap:wrap;gap:20px}
+.ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.ins-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.ins-grid{grid-template-columns:1fr}}
+.ins-card{border-radius:18px;overflow:hidden;border:1px solid rgba(0,0,0,.07);transition:all .3s;cursor:pointer}
+.ins-card:hover{transform:translateY(-5px);box-shadow:0 22px 56px rgba(15,26,46,.1)}
+.ins-thumb{position:relative;height:190px;overflow:hidden}
+.ins-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.ins-card:hover .ins-thumb img{transform:scale(1.06)}
+.ins-tag{position:absolute;top:14px;left:14px;background:linear-gradient(135deg,var(--gold),var(--goldl));color:var(--ink);font-size:10.5px;font-weight:700;padding:5px 13px;border-radius:50px}
+.ins-body{padding:22px}
+.ins-meta{font-size:11.5px;color:var(--muted);margin-bottom:10px}
+.ins-body h3{font-family:'Cormorant Garamond',serif;font-size:1.14rem;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.35;transition:color .2s}
+.ins-card:hover h3{color:var(--gold)}
+.ins-body p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:14px}
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+@media(max-width:900px){.faq-grid{grid-template-columns:1fr;gap:44px}}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{border-radius:13px;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);transition:border-color .25s}
+.faq-item.open{border-color:rgba(201,168,76,.38)}
+.faq-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px 19px;background:none;border:none;cursor:pointer;text-align:left}
+.faq-q{font-size:14px;font-weight:500;color:rgba(255,255,255,.82);line-height:1.4}
+.faq-icon{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.14);color:var(--gold);font-size:10px;transition:all .28s}
+.faq-item.open .faq-icon{background:linear-gradient(135deg,var(--gold),var(--goldl));color:var(--ink);transform:rotate(45deg)}
+.faq-ans{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-item.open .faq-ans{max-height:300px}
+.faq-ans p{font-size:13.5px;color:rgba(255,255,255,.42);line-height:1.78;padding:0 19px 17px}
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.75fr;gap:36px;align-items:start}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.info-panel{background:var(--ink);border:1px solid rgba(201,168,76,.22);border-radius:18px;padding:34px}
+.info-panel h3{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;color:#fff;margin-bottom:26px}
+.ci{display:flex;gap:14px;margin-bottom:22px;align-items:flex-start}
+.ci-icon{width:40px;height:40px;min-width:40px;border-radius:10px;background:rgba(201,168,76,.14);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:13px}
+.ci-lbl{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+.ci-val{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.62}
+.soc-title{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);margin:22px 0 12px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08)}
+.socials{display:flex;gap:8px}
+.soc-btn{width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.13);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:13px;transition:all .22s}
+.soc-btn:hover{border-color:rgba(201,168,76,.45);color:var(--gold)}
+.form-card{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:18px;padding:36px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:560px){.form-row{grid-template-columns:1fr}}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:11.5px;font-weight:600;color:var(--ink);letter-spacing:.4px;margin-bottom:7px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 15px;border:1px solid rgba(0,0,0,.13);border-radius:10px;font-size:13.5px;color:var(--ink);background:var(--cream);outline:none;transition:border-color .22s,box-shadow .22s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.13)}
+.form-group textarea{resize:none}
+.submit-btn{width:100%;padding:15px;border:none;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--goldl));color:var(--ink);font-weight:700;font-size:14.5px;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:9px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(201,168,76,.42)}
+.success-msg{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center}
+.success-msg.show{display:flex}
+.form-fields.hide{display:none}
+.success-icon{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--goldl));display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:28px;color:var(--ink)}
+/* CTA BAND */
+.cta-band{background:linear-gradient(135deg,var(--gold),var(--goldl));padding:72px 5%;text-align:center}
+.cta-band h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--ink);margin-bottom:14px}
+.cta-band p{font-size:16px;color:rgba(11,22,41,.58);margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto}
+.btn-dark{background:var(--ink);color:#fff;padding:15px 44px;border-radius:10px;font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:9px;transition:all .25s}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(11,22,41,.36)}
+/* FOOTER */
+footer{background:#060f1e;padding:68px 5% 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:56px}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;gap:32px}}
+.footer-logo{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.footer-logo-icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--goldl));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--ink)}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.77;margin-bottom:20px;max-width:290px}
+.footer-badges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.f-badge{font-size:10.5px;color:rgba(255,255,255,.36);padding:4px 11px;border-radius:50px;border:1px solid rgba(255,255,255,.11)}
+.footer-col h5{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:18px}
+.footer-col ul{display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a{font-size:13px;color:rgba(255,255,255,.33);transition:color .2s}
+.footer-col ul li a:hover{color:var(--goldl)}
+.fci-list{display:flex;flex-direction:column;gap:13px}
+.fci{display:flex;gap:9px;align-items:flex-start}
+.fci i{color:var(--gold);font-size:11px;margin-top:2px;flex-shrink:0}
+.fci span{font-size:12.5px;color:rgba(255,255,255,.3);line-height:1.6}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.07);padding-top:26px}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,.24)}
+.f-links{display:flex;gap:22px}
+.f-links a{font-size:12px;color:rgba(255,255,255,.24);transition:color .2s}
+.f-links a:hover{color:var(--gold)}
+/* HELPERS */
+.tc{text-align:center}.mlra{margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon">SF</div>
+    <div class="nav-logo-text">
+      <strong>Structa Finance</strong>
+      <span>Accounting &amp; Advisory</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#industries">Industries</a>
+    <a href="#team">Team</a>
+    <a href="#insights">Insights</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Free Consultation</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#industries" onclick="closeMenu()">Industries</a>
+  <a href="#team" onclick="closeMenu()">Team</a>
+  <a href="#insights" onclick="closeMenu()">Insights</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="#contact" class="mob-cta" onclick="closeMenu()"><i class="fas fa-calendar-check"></i> Free Consultation</a>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="home">
+  <div class="hero-bg-g"></div>
+  <div class="hero-grid-bg"></div>
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-orb"></div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Trusted by 500+ Businesses Since 2006</div>
+      <h1 class="serif">Where Numbers<br>Tell <em class="gold-text" style="font-style:normal">Your Story</em></h1>
+      <p class="hero-desc">Structa Finance delivers world-class audit, tax, and business consulting — transforming financial complexity into strategic clarity for growing organizations.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-gold"><i class="fas fa-calendar-check"></i> Book Free Consultation</a>
+        <a href="#services" class="btn-outline-w">Explore Services <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><i class="fas fa-check-circle"></i> ICAP Member</div>
+        <div class="trust-item"><i class="fas fa-check-circle"></i> IFRS Certified</div>
+        <div class="trust-item"><i class="fas fa-check-circle"></i> ISO 9001:2015</div>
+        <div class="trust-item"><i class="fas fa-check-circle"></i> SECP Registered</div>
+      </div>
+    </div>
+    <div class="stats-wrap">
+      <div class="stats-card">
+        <div class="stat-cell"><div class="stat-num" id="cnt1">0+</div><div class="stat-lbl">Clients Served</div></div>
+        <div class="stat-cell"><div class="stat-num" id="cnt2">0+</div><div class="stat-lbl">Years of Excellence</div></div>
+        <div class="stat-cell"><div class="stat-num" id="cnt3">0%</div><div class="stat-lbl">Client Retention</div></div>
+        <div class="stat-cell"><div class="stat-num" id="cnt4">0+</div><div class="stat-lbl">CPA Professionals</div></div>
+      </div>
+      <div class="award-badge">
+        <div class="award-badge-icon"><i class="fas fa-trophy"></i></div>
+        <div><div class="award-badge-title">Best Accounting Firm</div><div class="award-badge-sub">Pakistan Business Awards 2024</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker-bar">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<!-- GOLD MARQUEE -->
+<div class="marquee-gold"><div class="marquee-inner" id="marqueeInner"></div></div>
+
+<!-- SERVICES -->
+<section class="bg-cream" id="services">
+  <div class="svc-hdr reveal">
+    <div><div class="sec-line"></div><div class="sec-tag">What We Do</div><h2 class="sec-title">Our Core Services</h2></div>
+    <p class="sec-sub" style="text-align:right;max-width:320px">Comprehensive solutions tailored to every stage of your business journey.</p>
+  </div>
+  <div class="svc-grid reveal">
+    <div class="svc-card feat">
+      <div class="svc-icon si-d"><i class="fas fa-magnifying-glass-chart"></i></div>
+      <h3 class="serif h-d">Audit &amp; Assurance</h3>
+      <p class="svc-desc p-d">Independent, rigorous audits giving stakeholders full confidence in your financial statements and internal controls.</p>
+      <ul class="svc-list">
+        <li style="color:rgba(255,255,255,.48)">Statutory &amp; Regulatory Audits</li>
+        <li style="color:rgba(255,255,255,.48)">Internal Audit &amp; Controls</li>
+        <li style="color:rgba(255,255,255,.48)">Financial Statement Assurance</li>
+        <li style="color:rgba(255,255,255,.48)">Forensic Investigations</li>
+        <li style="color:rgba(255,255,255,.48)">IFRS &amp; GAAP Compliance</li>
+      </ul>
+      <a href="#contact" class="svc-link">Get Started <i class="fas fa-arrow-right" style="font-size:10px"></i></a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon si-l"><i class="fas fa-chess-knight"></i></div>
+      <h3 class="serif h-l">Business Consulting</h3>
+      <p class="svc-desc p-l">Strategic guidance to accelerate growth, optimize operations, and maximize enterprise value.</p>
+      <ul class="svc-list">
+        <li style="color:var(--muted)">Business Strategy &amp; Planning</li>
+        <li style="color:var(--muted)">Financial Restructuring</li>
+        <li style="color:var(--muted)">M&amp;A Advisory</li>
+        <li style="color:var(--muted)">Performance Management</li>
+        <li style="color:var(--muted)">Market Entry Strategy</li>
+      </ul>
+      <a href="#contact" class="svc-link">Learn More <i class="fas fa-arrow-right" style="font-size:10px"></i></a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon si-l"><i class="fas fa-file-invoice-dollar"></i></div>
+      <h3 class="serif h-l">Tax Advisory</h3>
+      <p class="svc-desc p-l">Comprehensive tax planning and compliance to minimize liability and ensure full regulatory adherence.</p>
+      <ul class="svc-list">
+        <li style="color:var(--muted)">Income Tax Planning</li>
+        <li style="color:var(--muted)">Sales Tax / GST Filing</li>
+        <li style="color:var(--muted)">Withholding Tax</li>
+        <li style="color:var(--muted)">FBR Compliance</li>
+        <li style="color:var(--muted)">Tax Dispute Resolution</li>
+      </ul>
+      <a href="#contact" class="svc-link">Learn More <i class="fas fa-arrow-right" style="font-size:10px"></i></a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon si-l"><i class="fas fa-book-open"></i></div>
+      <h3 class="serif h-l">Bookkeeping &amp; Payroll</h3>
+      <p class="svc-desc p-l">Accurate, timely financial records and seamless payroll management so you can focus on growth.</p>
+      <ul class="svc-list">
+        <li style="color:var(--muted)">Monthly Bookkeeping</li>
+        <li style="color:var(--muted)">Accounts Payable / Receivable</li>
+        <li style="color:var(--muted)">Payroll Processing</li>
+        <li style="color:var(--muted)">Bank Reconciliation</li>
+      </ul>
+      <a href="#contact" class="svc-link">Learn More <i class="fas fa-arrow-right" style="font-size:10px"></i></a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon si-l"><i class="fas fa-shield-halved"></i></div>
+      <h3 class="serif h-l">Risk &amp; Compliance</h3>
+      <p class="svc-desc p-l">Identify, assess, and mitigate financial and operational risks before they impact your business.</p>
+      <ul class="svc-list">
+        <li style="color:var(--muted)">Enterprise Risk Assessment</li>
+        <li style="color:var(--muted)">AML &amp; KYC Compliance</li>
+        <li style="color:var(--muted)">Regulatory Advisory</li>
+        <li style="color:var(--muted)">SECP Compliance</li>
+      </ul>
+      <a href="#contact" class="svc-link">Learn More <i class="fas fa-arrow-right" style="font-size:10px"></i></a>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon si-l"><i class="fas fa-chart-line"></i></div>
+      <h3 class="serif h-l">Financial Reporting</h3>
+      <p class="svc-desc p-l">Accurate, insightful reports that empower leadership to make confident, data-driven decisions.</p>
+      <ul class="svc-list">
+        <li style="color:var(--muted)">Management Accounts</li>
+        <li style="color:var(--muted)">Consolidated Financials</li>
+        <li style="color:var(--muted)">Cash Flow Forecasting</li>
+        <li style="color:var(--muted)">KPI Dashboards</li>
+      </ul>
+      <a href="#contact" class="svc-link">Learn More <i class="fas fa-arrow-right" style="font-size:10px"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="bg-white" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img class="about-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80" alt="Structa Finance Office" loading="lazy"/>
+      <div class="yr-badge"><strong>18</strong><span>Years of Excellence</span></div>
+      <div class="float-card"><div class="float-icon"><i class="fas fa-star"></i></div><div><div class="float-num">4.9</div><div class="float-lbl">Client Satisfaction</div></div></div>
+    </div>
+    <div class="reveal">
+      <div class="sec-line"></div>
+      <div class="sec-tag">About Structa Finance</div>
+      <h2 class="sec-title">Your Trusted Partner in Financial Success</h2>
+      <p style="font-size:15.5px;line-height:1.8;color:var(--muted);margin-bottom:8px">Since 2006, Structa Finance has been helping businesses navigate complex financial landscapes with confidence, clarity, and unwavering integrity.</p>
+      <div class="about-pts">
+        <div class="about-pt"><div class="pt-icon"><i class="fas fa-users"></i></div><div><div class="pt-h">Expert Team of 40+ CPAs</div><div class="pt-p">Senior-led engagements with deep expertise across every industry and regulatory framework.</div></div></div>
+        <div class="about-pt"><div class="pt-icon"><i class="fas fa-globe"></i></div><div><div class="pt-h">Global Standards, Local Knowledge</div><div class="pt-p">IFRS and GAAP expertise combined with intimate knowledge of Pakistan's regulatory environment.</div></div></div>
+        <div class="about-pt"><div class="pt-icon"><i class="fas fa-lock"></i></div><div><div class="pt-h">Confidentiality &amp; Integrity</div><div class="pt-p">Your financial data is handled with the highest levels of security and professional responsibility.</div></div></div>
+        <div class="about-pt"><div class="pt-icon"><i class="fas fa-clock"></i></div><div><div class="pt-h">On-Time Delivery, Always</div><div class="pt-p">Structured workflows ensure every report, filing, or audit is delivered on schedule.</div></div></div>
+      </div>
+      <a href="#contact" class="btn-gold" style="display:inline-flex">Meet Our Team <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="bg-ink">
+  <div class="sec-line" style="background:linear-gradient(90deg,var(--gold),var(--goldl))"></div>
+  <div class="sec-tag">Why Choose Us</div>
+  <h2 class="sec-title" style="color:#fff">The Structa Finance Difference</h2>
+  <p style="font-size:15.5px;line-height:1.8;color:rgba(255,255,255,.44);max-width:500px">We don't just crunch numbers — we become a strategic extension of your team.</p>
+  <div class="whyus-grid">
+    <div class="reveal"><img class="whyus-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80" alt="Our Team" loading="lazy"/></div>
+    <div class="feat-list reveal">
+      <div class="feat-item"><div class="feat-icon"><i class="fas fa-user-tie"></i></div><div><div class="feat-h">Senior-Led Engagements</div><div class="feat-p">Every relationship managed by a senior partner — no hand-offs to juniors for critical decisions.</div></div></div>
+      <div class="feat-item"><div class="feat-icon"><i class="fas fa-clock"></i></div><div><div class="feat-h">On-Time Delivery, Every Time</div><div class="feat-p">We understand that deadlines matter. Our workflows ensure deliverables are always on schedule.</div></div></div>
+      <div class="feat-item"><div class="feat-icon"><i class="fas fa-chart-pie"></i></div><div><div class="feat-h">Data-Driven Insights</div><div class="feat-p">We go beyond compliance — delivering actionable intelligence to drive profitability.</div></div></div>
+      <div class="feat-item"><div class="feat-icon"><i class="fas fa-handshake"></i></div><div><div class="feat-h">Long-Term Partnership</div><div class="feat-p">Our 99% client retention rate speaks to relationships built on trust, results, and genuine care.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="bg-cream" id="industries">
+  <div class="tc reveal" style="margin-bottom:52px">
+    <div class="sec-line mlra" style="margin-left:auto;margin-right:auto"></div>
+    <div class="sec-tag tc">Industries We Serve</div>
+    <h2 class="sec-title tc">Sector-Specific Expertise</h2>
+    <p class="sec-sub mlra tc">We understand unique financial challenges of each industry and tailor our approach accordingly.</p>
+  </div>
+  <div class="ind-grid reveal">
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-industry"></i></div><h4>Manufacturing</h4><p>Cost accounting, inventory audits, and operational financial controls.</p></div>
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-hospital"></i></div><h4>Healthcare</h4><p>Revenue cycle management, grant compliance, and regulatory reporting.</p></div>
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-building-columns"></i></div><h4>Financial Services</h4><p>NBFC compliance, SBP regulatory filings, and treasury management.</p></div>
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-laptop-code"></i></div><h4>Technology</h4><p>R&amp;D capitalization, equity structuring, and startup financial modeling.</p></div>
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-store"></i></div><h4>Retail &amp; FMCG</h4><p>Multi-location bookkeeping, inventory costing, and GST compliance.</p></div>
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-hard-hat"></i></div><h4>Construction</h4><p>Project accounting, WIP reporting, and contractor compliance.</p></div>
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-graduation-cap"></i></div><h4>Education</h4><p>Trust accounting, endowment management, and accreditation reporting.</p></div>
+    <div class="ind-card"><div class="ind-icon"><i class="fas fa-seedling"></i></div><h4>Agriculture</h4><p>Farm accounting, subsidy management, and export documentation.</p></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="bg-white" id="team">
+  <div class="tc reveal" style="margin-bottom:52px">
+    <div class="sec-line mlra" style="margin-left:auto;margin-right:auto"></div>
+    <div class="sec-tag tc">Our Leadership</div>
+    <h2 class="sec-title tc">Meet the Partners</h2>
+    <p class="sec-sub mlra tc">Senior-led engagements, every time. Our partners bring decades of combined experience.</p>
+  </div>
+  <div class="team-grid reveal">
+    <div class="team-card"><div class="team-photo"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Kamran Siddiqui" loading="lazy"/></div><div class="team-info"><div class="team-name serif">Kamran Siddiqui</div><div class="team-role">Managing Partner</div><div class="team-cred">FCA, MBA – IBA Karachi</div><div class="team-exp"><i class="fas fa-briefcase"></i> 22 years</div></div></div>
+    <div class="team-card"><div class="team-photo"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Nadia Farooq" loading="lazy"/></div><div class="team-info"><div class="team-name serif">Nadia Farooq</div><div class="team-role">Head of Tax Advisory</div><div class="team-cred">ACA, LLB – KU</div><div class="team-exp"><i class="fas fa-briefcase"></i> 16 years</div></div></div>
+    <div class="team-card"><div class="team-photo"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" alt="Bilal Chaudhry" loading="lazy"/></div><div class="team-info"><div class="team-name serif">Bilal Chaudhry</div><div class="team-role">Director – Consulting</div><div class="team-cred">FCMA, CFA Level III</div><div class="team-exp"><i class="fas fa-briefcase"></i> 18 years</div></div></div>
+    <div class="team-card"><div class="team-photo"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="Sana Mirza" loading="lazy"/></div><div class="team-info"><div class="team-name serif">Sana Mirza</div><div class="team-role">Director – Assurance</div><div class="team-cred">ACA, ACCA</div><div class="team-exp"><i class="fas fa-briefcase"></i> 14 years</div></div></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="bg-cream" id="process">
+  <div class="tc reveal">
+    <div class="sec-line mlra" style="margin-left:auto;margin-right:auto"></div>
+    <div class="sec-tag tc">How It Works</div>
+    <h2 class="sec-title tc">Our Engagement Process</h2>
+    <p class="sec-sub mlra tc">Clear, transparent, collaborative — from first call to long-term partnership.</p>
+  </div>
+  <div class="proc-steps reveal">
+    <div class="proc-step"><div class="proc-circle pc-active"><i class="fas fa-phone-volume"></i></div><h4>Free Consultation</h4><p>Complimentary discovery call to understand your goals and current financial situation.</p></div>
+    <div class="proc-step"><div class="proc-circle pc-idle"><i class="fas fa-file-contract"></i></div><h4>Tailored Proposal</h4><p>Custom plan with clear scope, deliverables, timeline, and transparent pricing.</p></div>
+    <div class="proc-step"><div class="proc-circle pc-idle"><i class="fas fa-gears"></i></div><h4>Expert Execution</h4><p>Senior professionals execute with precision, keeping you informed at every step.</p></div>
+    <div class="proc-step"><div class="proc-circle pc-idle"><i class="fas fa-chart-bar"></i></div><h4>Review &amp; Insights</h4><p>Actionable insights — not just numbers, but the story and what to do next.</p></div>
+    <div class="proc-step"><div class="proc-circle pc-idle"><i class="fas fa-handshake"></i></div><h4>Ongoing Partnership</h4><p>Trusted advisor year-round for questions, updates, and strategic guidance.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="bg-cream">
+  <div class="tc reveal" style="margin-bottom:52px">
+    <div class="sec-line mlra" style="margin-left:auto;margin-right:auto"></div>
+    <div class="sec-tag tc">Client Stories</div>
+    <h2 class="sec-title tc">Trusted by Industry Leaders</h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote>"Structa Finance's audit team gave our board complete confidence in our financials. Their attention to detail is unmatched in the industry."</blockquote><div class="testi-author"><div class="t-avatar">AK</div><div><div class="t-name">Ahmed Khalid</div><div class="t-role">CFO, Karachi Industrial Group</div></div></div></div>
+    <div class="testi-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote>"Their consulting team helped us restructure operations and increase margins by 22% in under a year. Truly exceptional strategic partners."</blockquote><div class="testi-author"><div class="t-avatar">SR</div><div><div class="t-name">Sara Raza</div><div class="t-role">CEO, TechVentures Pakistan</div></div></div></div>
+    <div class="testi-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote>"The compliance framework Structa Finance built for us saved us from a major regulatory issue. I cannot recommend them highly enough."</blockquote><div class="testi-author"><div class="t-avatar">FM</div><div><div class="t-name">Farhan Malik</div><div class="t-role">Director, Meridian Pharma</div></div></div></div>
+    <div class="testi-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote>"We switched to Structa Finance two years ago and the difference is night and day. Real-time advisory and a team that truly understands retail."</blockquote><div class="testi-author"><div class="t-avatar">ZH</div><div><div class="t-name">Zara Hussain</div><div class="t-role">Founder, ZH Retail Chain</div></div></div></div>
+    <div class="testi-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote>"From M&A due diligence to post-merger integration — Structa Finance handled everything flawlessly. Our firm of choice for every transaction."</blockquote><div class="testi-author"><div class="t-avatar">OS</div><div><div class="t-name">Omar Sheikh</div><div class="t-role">MD, Sheikh Group of Companies</div></div></div></div>
+    <div class="testi-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote>"Structa Finance understands education sector accounting better than anyone we've worked with. Highly professional and always available."</blockquote><div class="testi-author"><div class="t-avatar">AN</div><div><div class="t-name">Aisha Nawaz</div><div class="t-role">Finance Head, EduSpark Institute</div></div></div></div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section class="bg-white" id="insights">
+  <div class="ins-hdr reveal">
+    <div><div class="sec-line"></div><div class="sec-tag">Knowledge Hub</div><h2 class="sec-title">Latest Insights</h2></div>
+    <a href="#" class="svc-link" style="font-size:13.5px;align-self:flex-end">View All Articles <i class="fas fa-arrow-right" style="font-size:10px"></i></a>
+  </div>
+  <div class="ins-grid reveal">
+    <div class="ins-card"><div class="ins-thumb"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="" loading="lazy"/><span class="ins-tag">Tax Advisory</span></div><div class="ins-body"><div class="ins-meta">March 2025 &nbsp;·&nbsp; 5 min read</div><h3 class="serif">FBR's Latest Amendments: What Every Business Needs to Know</h3><p>A practical breakdown of the most impactful Finance Act 2025 changes and how they affect your strategy.</p><span class="svc-link">Read Article <i class="fas fa-arrow-right" style="font-size:10px"></i></span></div></div>
+    <div class="ins-card"><div class="ins-thumb"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="" loading="lazy"/><span class="ins-tag">Audit</span></div><div class="ins-body"><div class="ins-meta">February 2025 &nbsp;·&nbsp; 8 min read</div><h3 class="serif">IFRS 17 Insurance Contracts: A Compliance Roadmap</h3><p>Everything Pakistani insurers and financial institutions need to know about implementing IFRS 17.</p><span class="svc-link">Read Article <i class="fas fa-arrow-right" style="font-size:10px"></i></span></div></div>
+    <div class="ins-card"><div class="ins-thumb"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="" loading="lazy"/><span class="ins-tag">Consulting</span></div><div class="ins-body"><div class="ins-meta">January 2025 &nbsp;·&nbsp; 6 min read</div><h3 class="serif">How to Prepare Your Business for a Successful M&amp;A Transaction</h3><p>The financial steps that separate deals that close from deals that collapse — from due diligence to valuation.</p><span class="svc-link">Read Article <i class="fas fa-arrow-right" style="font-size:10px"></i></span></div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-ink" id="faq">
+  <div class="faq-grid">
+    <div class="reveal">
+      <div class="sec-line" style="background:linear-gradient(90deg,var(--gold),var(--goldl))"></div>
+      <div class="sec-tag">FAQ</div>
+      <h2 class="sec-title" style="color:#fff">Frequently Asked Questions</h2>
+      <p style="color:rgba(255,255,255,.44);font-size:15.5px;line-height:1.78;margin-bottom:30px">Have more questions? We're happy to answer any enquiry directly.</p>
+      <a href="#contact" class="btn-outline-w" style="display:inline-flex;font-size:13.5px">Contact Us <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What size businesses do you work with?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button><div class="faq-ans"><p>We serve clients across all stages — from startups and SMEs to large listed corporations. Our teams handle engagements of any size with the same level of dedication.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How long does an audit typically take?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button><div class="faq-ans"><p>A standard statutory audit for an SME typically takes 3–6 weeks. For larger organizations it can extend to 8–12 weeks. We provide a detailed project plan at the proposal stage.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Do you work with international clients?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button><div class="faq-ans"><p>Yes. We have experience with IFRS reporting, foreign subsidiary audits, and cross-border consulting for multinationals operating in Pakistan and the wider region.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What accounting software do you work with?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button><div class="faq-ans"><p>Our team is proficient in SAP, Oracle, QuickBooks, Xero, Sage, and most industry-specific ERP systems. We work within your existing infrastructure.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">How are your fees structured?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button><div class="faq-ans"><p>We offer both fixed-fee and retainer-based engagements. All pricing is transparent and agreed upfront — there are no hidden charges or surprise invoices.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Is my financial information kept confidential?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button><div class="faq-ans"><p>Absolutely. All client data is governed by strict confidentiality agreements under ICAP guidelines and handled through encrypted, secure data management systems.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="bg-cream" id="contact">
+  <div class="tc reveal" style="margin-bottom:52px">
+    <div class="sec-line mlra" style="margin-left:auto;margin-right:auto"></div>
+    <div class="sec-tag tc">Get In Touch</div>
+    <h2 class="sec-title tc">Start the Conversation</h2>
+    <p class="sec-sub mlra tc">Book a free 30-minute consultation. No commitment, no pressure — just expert advice.</p>
+  </div>
+  <div class="contact-grid reveal">
+    <div class="info-panel">
+      <h3 class="serif">Contact Information</h3>
+      <div class="ci"><div class="ci-icon"><i class="fas fa-location-dot"></i></div><div><div class="ci-lbl">Office</div><div class="ci-val">3rd Floor, Finance Tower<br>I.I. Chundrigar Road, Karachi</div></div></div>
+      <div class="ci"><div class="ci-icon"><i class="fas fa-phone"></i></div><div><div class="ci-lbl">Phone</div><div class="ci-val">+92 21 3456 7890</div></div></div>
+      <div class="ci"><div class="ci-icon"><i class="fas fa-envelope"></i></div><div><div class="ci-lbl">Email</div><div class="ci-val">hello@structafinance.com</div></div></div>
+      <div class="ci"><div class="ci-icon"><i class="fas fa-clock"></i></div><div><div class="ci-lbl">Hours</div><div class="ci-val">Mon–Fri: 9AM – 6PM<br>Saturday: 10AM – 2PM</div></div></div>
+      <div class="soc-title">Follow Us</div>
+      <div class="socials"><a href="#" class="soc-btn"><i class="fab fa-linkedin-in"></i></a><a href="#" class="soc-btn"><i class="fab fa-twitter"></i></a><a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a><a href="#" class="soc-btn"><i class="fab fa-instagram"></i></a></div>
+    </div>
+    <div class="form-card" id="formCard">
+      <div class="form-fields" id="formFields">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name *</label><input type="text" id="inpName" placeholder="Ahmed Khalid"/></div>
+          <div class="form-group"><label>Email Address *</label><input type="email" id="inpEmail" placeholder="ahmed@company.com"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+92 300 0000000"/></div>
+          <div class="form-group"><label>Company Name</label><input type="text" placeholder="Your Company Ltd."/></div>
+        </div>
+        <div class="form-group"><label>Service Required</label><select><option value="">Select a service...</option><option>Audit &amp; Assurance</option><option>Business Consulting</option><option>Tax Advisory</option><option>Bookkeeping &amp; Payroll</option><option>Risk &amp; Compliance</option><option>Financial Reporting</option></select></div>
+        <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your business and what you need help with..."></textarea></div>
+        <button class="submit-btn" onclick="submitForm()"><i class="fas fa-paper-plane"></i> Send Message — It's Free</button>
+      </div>
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <h3 class="serif" style="font-size:1.9rem;font-weight:700;color:var(--ink);margin-bottom:8px">Message Received!</h3>
+        <p style="color:var(--muted);font-size:15.5px">One of our senior advisors will contact you within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2 class="serif">Ready to Transform Your Finances?</h2>
+  <p>Join 500+ businesses who trust Structa Finance as their strategic financial partner.</p>
+  <a href="#contact" class="btn-dark"><i class="fas fa-calendar-check"></i> Book Free Consultation</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><div class="footer-logo-icon">SF</div><span class="footer-brand serif">Structa Finance</span></div>
+      <p class="footer-desc">Empowering businesses with clarity, confidence, and strategic financial leadership since 2006. ICAP Member Firm.</p>
+      <div class="footer-badges"><span class="f-badge">ICAP Member</span><span class="f-badge">IFRS Certified</span><span class="f-badge">SECP Registered</span></div>
+      <div class="socials"><a href="#" class="soc-btn"><i class="fab fa-linkedin-in"></i></a><a href="#" class="soc-btn"><i class="fab fa-twitter"></i></a><a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a><a href="#" class="soc-btn"><i class="fab fa-instagram"></i></a><a href="#" class="soc-btn"><i class="fab fa-youtube"></i></a></div>
+    </div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a href="#services">Audit &amp; Assurance</a></li><li><a href="#services">Business Consulting</a></li><li><a href="#services">Tax Advisory</a></li><li><a href="#services">Bookkeeping &amp; Payroll</a></li><li><a href="#services">Risk &amp; Compliance</a></li><li><a href="#services">Financial Reporting</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a href="#about">About Us</a></li><li><a href="#team">Our Team</a></li><li><a href="#">Careers</a></li><li><a href="#insights">Insights</a></li><li><a href="#">Case Studies</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><div class="fci-list"><div class="fci"><i class="fas fa-location-dot"></i><span>3rd Floor, Finance Tower, I.I. Chundrigar Road, Karachi</span></div><div class="fci"><i class="fas fa-phone"></i><span>+92 21 3456 7890</span></div><div class="fci"><i class="fas fa-envelope"></i><span>hello@structafinance.com</span></div><div class="fci"><i class="fas fa-clock"></i><span>Mon–Sat, 9AM – 6PM</span></div></div></div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Structa Finance. All rights reserved.</p>
+    <div class="f-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Disclaimer</a></div>
+  </div>
+</footer>
+
+<script>
+// PARTICLE CANVAS
+(function(){
+  var c=document.getElementById('heroCanvas'),h=c.parentElement,ctx=c.getContext('2d');
+  function resize(){c.width=h.offsetWidth;c.height=h.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  var pts=[];
+  for(var i=0;i<68;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.4+.3,a:Math.random()*.36+.1,p:Math.random()*Math.PI*2});
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(function(p){p.p+=.012;p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;var a=p.a*(.7+.3*Math.sin(p.p));ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(201,168,76,'+a+')';ctx.fill();});
+    for(var i=0;i<pts.length;i++)for(var j=i+1;j<pts.length;j++){var d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<112){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(201,168,76,'+(.06*(1-d/112))+')';ctx.lineWidth=.5;ctx.stroke();}}
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// TICKER
+(function(){
+  var items=['Audit & Assurance','Tax Planning','Business Consulting','Financial Reporting','Risk Management','Payroll Solutions','IFRS Compliance','Corporate Finance','SECP Compliance','M&A Advisory'];
+  var d=items.concat(items);
+  document.getElementById('tickerTrack').innerHTML=d.map(function(t){return'<span class="ticker-item">'+t+'<span class="ticker-dot"></span></span>';}).join('');
+})();
+
+// MARQUEE
+(function(){
+  var items=['Audit & Assurance','Business Consulting','Tax Advisory','Bookkeeping','Risk & Compliance','Financial Reporting','IFRS Certified','SECP Registered','ISO 9001:2015'];
+  var d=items.concat(items);
+  document.getElementById('marqueeInner').innerHTML=d.map(function(t){return'<span class="mq-item">'+t+'<span class="mq-dot"></span></span>';}).join('');
+})();
+
+// COUNTERS
+function animCounter(el,target,sfx){
+  var start=null,dur=2200;
+  (function step(ts){if(!start)start=ts;var p=Math.min((ts-start)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*target)+sfx;if(p<1)requestAnimationFrame(step);else el.textContent=target+sfx;})(performance.now());
+}
+var counted=false;
+new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!counted){counted=true;animCounter(document.getElementById('cnt1'),500,'+');animCounter(document.getElementById('cnt2'),18,'+');animCounter(document.getElementById('cnt3'),99,'%');animCounter(document.getElementById('cnt4'),40,'+');}});},{threshold:.3}).observe(document.querySelector('.stats-card'));
+
+// REVEAL
+var revObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:.09});
+document.querySelectorAll('.reveal').forEach(function(r){revObs.observe(r);});
+
+// NAVBAR SCROLL
+window.addEventListener('scroll',function(){document.getElementById('navbar').classList[window.scrollY>40?'add':'remove']('scrolled');});
+
+// MOBILE MENU
+function toggleMenu(){document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');}
+function closeMenu(){document.getElementById('hamburger').classList.remove('open');document.getElementById('mobileMenu').classList.remove('open');}
+
+// FAQ
+function toggleFaq(btn){var item=btn.parentElement,isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});if(!isOpen)item.classList.add('open');}
+
+// FORM
+function submitForm(){
+  var n=document.getElementById('inpName').value.trim(),em=document.getElementById('inpEmail').value.trim();
+  if(!n||!em){alert('Please enter your name and email.');return;}
+  document.getElementById('formFields').classList.add('hide');
+  document.getElementById('successMsg').classList.add('show');
+}
+</script>
+</body>
+</html>
